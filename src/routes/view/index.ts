@@ -1,14 +1,14 @@
   import {Router} from 'express'
-import User from '../../models/user';
-
+import UserController from '../../controllers/user';
 const viewRouter = Router();
 
+const{getRenderedUser} = UserController
 viewRouter.get('/',  (req,res)=>{
     res.send('Server is up and running')
 });
 
-viewRouter
-.get('/',viewRouter)
+
+viewRouter.get('/user',getRenderedUser)
 
 
 export default viewRouter;

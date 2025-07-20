@@ -1,38 +1,44 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import routes from './routes/api/Index'
-import pageNotFound from './middlewares/pageNotFound';
-import basicLogger from './middlewares/logger';
-import viewRouter from './routes/view';
-
+import express from "express";
+import dotenv from "dotenv";
+import routes from "./routes/api/Index";
+import basicLogger from "./middlewares/logger";
+import pageNotFound from "./middlewares/pageNotFound";
+import viewRouter from "./routes/view";
+import connectToDB from "./db";
+import { errorHandler } from "./middlewares/error";
+import configureOAuthProviders from "./providers/auth";
 
 const app = express();
 
 dotenv.config();
-app.use(basicLogger)
-//express middleware
-app.use(express.static('src/public'));
-
-app.set('view engine', 'ejs');
-app.set('views', 'src/views');
-
-
+connectToDB();
+app.use(basicLogger); //logger middleware);
+// express middleware
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/v1', routes);
-app.use(viewRouter)
+
+
+app.use(express.static("public"));
+
+app.set("view engine", "ejs");
+app.set("views", "templates");
+
+configureOAuthProviders(app);
+
 //routes
 
-
-
-app.use(pageNotFound)
-
-//user routes
+app.use("/api/v1", routes);
+app.use(viewRouter);
+// 404 error handling middleware
+app.use(pageNotFound);
+app.use(errorHandler);
 
 const startServer = () => {
-    const PORT = process.env.PORT || 3000
-    app.listen(PORT, () => {
-        console.log(`server is running on port ${PORT}`);
-
-    });
+  //spin up a server
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 };
- export default startServer;
+
+export default startServer;
