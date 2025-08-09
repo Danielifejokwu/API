@@ -12,7 +12,7 @@ const { getUsers, createUser, getById, updateUser, setUserPassword, deleteUser, 
 const { SUPER_ADMIN,ADMIN} = ROLES;
 
 userRouter
-  .get("/", authenticator, roleAuthorizer([ADMIN]), getUsers) // only admins and superAdmins
+  .get("/", authenticator, roleAuthorizer([ADMIN, SUPER_ADMIN]), getUsers) // only admins and superAdmins
   .post("/",
      validateUserCreation, 
      roleAuthorizer([SUPER_ADMIN]),

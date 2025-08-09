@@ -95,4 +95,5 @@ export const verifyJwtToken = (token: string, res: Response) => {
     userTokenResponse = user as userTokenResponse
   })
   return userTokenResponse
+
 }

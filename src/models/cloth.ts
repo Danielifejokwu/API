@@ -42,6 +42,7 @@ const getListOfClothes = async () => {
 
 
 
+
 const createClothData = async (cloth: Cloth) => {
   const newcloth = new clothDbModel({...cloth, name: cloth.name!.toLowerCase() });
   await newcloth.save();

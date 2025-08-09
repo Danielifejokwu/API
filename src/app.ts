@@ -1,18 +1,18 @@
 import express from "express";
-import dotenv from "dotenv";
+import  "dotenv/config";
 import routes from "./routes/api/Index";
-import basicLogger from "./middlewares/logger";
+import auditLogger from "./middlewares/auditMiddleware";
 import pageNotFound from "./middlewares/pageNotFound";
 import viewRouter from "./routes/view";
 import connectToDB from "./db";
 import { errorHandler } from "./middlewares/error";
 import configureOAuthProviders from "./providers/auth";
-
+import logger from "./utils/logger"
 const app = express();
 
-dotenv.config();
+
 connectToDB();
-app.use(basicLogger); //logger middleware);
+app.use(auditLogger); //logger middleware);
 // express middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +37,7 @@ const startServer = () => {
   //spin up a server
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    logger.info(`Server is running on port ${PORT}`);
   });
 };
 
