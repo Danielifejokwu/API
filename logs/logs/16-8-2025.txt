@@ -1,0 +1,8 @@
+{"level":"info","message":"Server is running on port 3000","service":"Express-api-demo"}
+{"level":"info","message":"connected to MongoDB","service":"Express-api-demo"}
+{"level":"info","message":"Server is running on port 3000","service":"Express-api-demo"}
+{"level":"info","message":"connected to MongoDB","service":"Express-api-demo"}
+{"level":"info","message":"Server is running on port 3000","service":"Express-api-demo"}
+{"level":"info","message":"connected to MongoDB","service":"Express-api-demo"}
+{"level":"info","message":"Server is running on port 3000","service":"Express-api-demo"}
+{"level":"info","message":"connected to MongoDB","service":"Express-api-demo"}

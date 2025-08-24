@@ -8,10 +8,13 @@ import connectToDB from "./db";
 import { errorHandler } from "./middlewares/error";
 import configureOAuthProviders from "./providers/auth";
 import logger from "./utils/logger"
+import runScheduledJobs from "./job";
+import { connectToRabbitMQ } from "./providers/rabbitMQ";
 const app = express();
 
 
 connectToDB();
+connectToRabbitMQ();
 app.use(auditLogger); //logger middleware);
 // express middleware
 app.use(express.json())
@@ -39,6 +42,8 @@ const startServer = () => {
   app.listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);
   });
+
+  runScheduledJobs();
 };
 
 export default startServer;
