@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import { UserDbModel } from "../models/user";
 import bcrypt from 'bcrypt';
 import {ensureUserCrendentialIsValid, generateToken } from "../utils/helpers";
+import logger from "../utils/logger";
 
 const login = asyncHandler(async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -20,8 +21,9 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getUsers = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  logger.info("Entered getUsers method");
   const users = await User.getUsers();
-  debugger;
+  logger.info(" Fetched users succesfully");
   res.status(200).json({ message: "Get all users", users });
 });
 
